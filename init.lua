@@ -91,7 +91,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -302,8 +302,9 @@ require('lazy').setup({
   -- after the plugin has been loaded as `require(MODULE).setup(opts)`.
   {
     'nvim-tree/nvim-web-devicons',
-    lazy = false,
+    lazy = true,
   },
+
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
@@ -553,7 +554,9 @@ require('lazy').setup({
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
-          map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
+          map('gra', function()
+            require('tiny-code-action').code_action()
+          end, '[G]oto Code [A]ction', { 'n', 'x' })
 
           -- Find references for the word under your cursor.
           map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -1066,11 +1069,10 @@ require('lazy').setup({
   },
 })
 
--- (method 1, For heavy lazyloaders)
-dofile(vim.g.base46_cache .. 'defaults')
-dofile(vim.g.base46_cache .. 'statusline')
-dofile(vim.g.base46_cache .. 'syntax')
-dofile(vim.g.base46_cache .. 'treesitter')
+-- (method 2, for non lazyloaders) to load all highlights at once
+for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
+  dofile(vim.g.base46_cache .. v)
+end
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

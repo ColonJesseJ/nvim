@@ -3,7 +3,7 @@ return {
   cmd = 'ShowkeysToggle',
   opts = {
     show_count = true,
-    position = 'top-right',
+    position = 'bottom-right',
     maxkeys = 4,
     -- more opts
   },

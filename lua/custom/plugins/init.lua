@@ -19,5 +19,22 @@ return {
   },
 
   'nvchad/volt', -- optional, needed for theme switcher
-  -- or just use Telescope themes
+  -- or just use Telescope theme
+  {
+    'nvzone/minty',
+    cmd = { 'Shades', 'Huefy' },
+  },
+  {
+    'nvzone/floaterm',
+    dependencies = 'nvzone/volt',
+    opts = {},
+    cmd = 'FloatermToggle',
+  },
+  { 'nvzone/timerly', opts = { position = 'top-right' }, cmd = 'TimerlyToggle' },
+  {
+    'nvzone/typr',
+    dependencies = 'nvzone/volt',
+    opts = {},
+    cmd = { 'Typr', 'TyprStats' },
+  },
 }
